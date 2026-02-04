@@ -14,6 +14,12 @@ export async function POST(request: NextRequest) {
     const publicationId = process.env.BEEHIIV_PUBLICATION_ID;
     const apiKey = process.env.BEEHIIV_API_KEY;
 
+    console.log('Beehiiv config check:', {
+      hasPublicationId: !!publicationId,
+      hasApiKey: !!apiKey,
+      publicationIdLength: publicationId?.length || 0,
+    });
+
     if (!publicationId || !apiKey) {
       console.error('Beehiiv credentials not configured');
       return NextResponse.json(
@@ -22,36 +28,49 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const response = await fetch(
-      `https://api.beehiiv.com/v2/publications/${publicationId}/subscriptions`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${apiKey}`,
-        },
-        body: JSON.stringify({
-          email,
-          reactivate_existing: true,
-          send_welcome_email: true,
-        }),
-      }
-    );
+    const beehiivUrl = `https://api.beehiiv.com/v2/publications/${publicationId}/subscriptions`;
+    console.log('Calling Beehiiv API:', beehiivUrl);
+
+    const response = await fetch(beehiivUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        email,
+        reactivate_existing: true,
+        send_welcome_email: true,
+      }),
+    });
+
+    console.log('Beehiiv response status:', response.status);
 
     if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      console.error('Beehiiv API error:', errorData);
+      const errorText = await response.text();
+      console.error('Beehiiv API error response:', errorText);
+
+      let errorData;
+      try {
+        errorData = JSON.parse(errorText);
+      } catch {
+        errorData = { raw: errorText };
+      }
+
       return NextResponse.json(
-        { error: 'Failed to subscribe' },
+        { error: 'Failed to subscribe', details: errorData },
         { status: response.status }
       );
     }
+
+    const data = await response.json();
+    console.log('Beehiiv success:', data);
 
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Newsletter subscription error:', error);
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: 'Internal server error', message: String(error) },
       { status: 500 }
     );
   }

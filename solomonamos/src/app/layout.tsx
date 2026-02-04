@@ -11,6 +11,18 @@ export const metadata: Metadata = {
   description: 'AI strategist and software engineer helping businesses leverage emerging technologies. Newsletter, consultancy, and software development services.',
   keywords: ['AI consultant', 'tech consultant', 'software development', 'AI strategy', 'automation'],
   authors: [{ name: 'Solomon Amos' }],
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: '/apple-touch-icon.png',
+    other: [
+      { rel: 'icon', url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { rel: 'icon', url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
+    ],
+  },
   openGraph: {
     title: 'Solomon Amos | AI & Tech Consultant',
     description: 'AI strategist and software engineer helping businesses leverage emerging technologies.',
