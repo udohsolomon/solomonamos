@@ -4,9 +4,9 @@ import { Github, Linkedin, Twitter, Mail } from 'lucide-react';
 import { HashLink } from '@/components/HashLink';
 
 const socialLinks = [
-  { href: 'https://twitter.com/solomonamos', icon: Twitter, label: 'Twitter' },
-  { href: 'https://linkedin.com/in/solomonamos', icon: Linkedin, label: 'LinkedIn' },
-  { href: 'https://github.com/solomonamos', icon: Github, label: 'GitHub' },
+  { href: 'https://x.com/laz_inc', icon: Twitter, label: 'Twitter' },
+  { href: 'https://www.linkedin.com/in/solomonudoh/', icon: Linkedin, label: 'LinkedIn' },
+  { href: 'https://github.com/udohsolomon', icon: Github, label: 'GitHub' },
   { href: 'mailto:hello@solomonamos.com', icon: Mail, label: 'Email' },
 ];
 

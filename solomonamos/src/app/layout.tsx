@@ -73,9 +73,9 @@ const jsonLd = {
       jobTitle: 'AI & Technology Consultant',
       description: 'AI strategist and software engineer helping businesses leverage emerging technologies.',
       sameAs: [
-        'https://twitter.com/sikirusolomonam',
-        'https://linkedin.com/in/solomonamos',
-        'https://github.com/solomonamos',
+        'https://x.com/laz_inc',
+        'https://www.linkedin.com/in/solomonudoh/',
+        'https://github.com/udohsolomon',
       ],
     },
   ],
