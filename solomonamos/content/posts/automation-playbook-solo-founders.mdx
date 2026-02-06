@@ -1,8 +1,10 @@
 ---
 title: "The Automation Playbook for Solo Founders"
 excerpt: "How I automated 80% of repetitive tasks using n8n, AI, and custom integrations. Save hundreds of hours per year."
+metaDescription: "Step-by-step automation playbook for solo founders using n8n, Claude API, and custom integrations. Includes lead processing, content distribution, and onboarding workflows."
 date: "2025-01-08"
 tags: ["Automation", "Productivity", "Tools"]
+author: "Solomon Amos"
 featured: true
 published: true
 ---
@@ -18,7 +20,9 @@ I tracked my time for a week and found I was spending:
 - 2+ hours on data entry and CRM updates
 - 2+ hours on scheduling and coordination
 
-That is 12+ hours per week on tasks that machines could handle.
+That is 12+ hours per week on tasks that machines could handle. Over a year, that is 624 hours. At even a modest $75/hour consulting rate, that is $46,800 worth of time burned on tasks that require zero creative thinking.
+
+The worst part was not the time itself. It was the context switching. Every time I stopped building to go update a CRM record or reformat a blog post for LinkedIn, I lost 20 minutes of deep focus on top of the task itself.
 
 ## My Automation Stack
 
@@ -28,10 +32,12 @@ That is 12+ hours per week on tasks that machines could handle.
 
 Why n8n over Zapier?
 
-- **Self-hosted** - No per-task pricing
-- **Code nodes** - Write JavaScript when needed
-- **Complex logic** - Branching, loops, error handling
-- **Data transformation** - Powerful built-in tools
+- **Self-hosted** - No per-task pricing. Zapier charges per "zap" execution, which adds up fast when you are processing hundreds of leads or posts per month.
+- **Code nodes** - Write JavaScript when visual nodes are not enough. I use this for custom data transformations and API calls to services without official integrations.
+- **Complex logic** - Branching, loops, error handling, and sub-workflows. Zapier struggles with anything beyond linear A-to-B flows.
+- **Data transformation** - Powerful built-in tools for reshaping JSON, merging datasets, and filtering records without writing code.
+
+I run n8n inside a Docker container on a Hetzner VPS. The entire setup takes about 30 minutes if you follow the official Docker Compose guide.
 
 ### Key Automations
 
@@ -47,6 +53,20 @@ When a new form submission comes in:
 
 **Time saved: 45 minutes per lead**
 
+Here is the actual n8n workflow structure:
+
+**Trigger:** Webhook node receiving POST data from my website contact form.
+
+**Node 1 - Clearbit Enrichment:** HTTP Request node calling the Clearbit Enrichment API with the lead's email. Returns company size, industry, role, and social profiles.
+
+**Node 2 - Lead Scoring (Code node):** A JavaScript function that assigns points based on ICP fit. Company size > 50 employees gets 10 points. "Founder" or "CTO" in the title gets 15 points. Target industry gets 20 points. Leads scoring above 40 get tagged as "high-value."
+
+**Node 3 - IF Branch:** Split based on lead score. High-value leads go through a premium path. Lower-scored leads get a standard nurture sequence.
+
+**Node 4 - CRM + Email:** Create or update the contact record with all enriched data. Send a personalized follow-up using a template that dynamically inserts the lead's name, company, and a relevant case study.
+
+**Error handling:** Every node has an error output connected to a Slack notification node. If Clearbit fails, the workflow continues without enrichment data rather than dropping the lead entirely.
+
 #### 2. Content Distribution
 
 When I publish a blog post:
@@ -58,6 +78,16 @@ When I publish a blog post:
 5. Update content database
 
 **Time saved: 2 hours per post**
+
+**Trigger:** RSS Feed node polling my blog's RSS feed every 15 minutes.
+
+**Node 1 - Fetch Full Content:** HTTP Request node that fetches the full blog post HTML, then an HTML Extract node that pulls out the article body.
+
+**Node 2 - AI Summary:** Sends the full post text to Claude API with a structured prompt. Returns a JSON object with key_points, twitter_thread, linkedin_post, and newsletter_blurb.
+
+**Node 3 - Split into branches:** Three parallel paths fire simultaneously. One posts to Twitter/X. One posts to LinkedIn. One appends to my newsletter draft in Notion.
+
+I stagger the social posts by 2 hours using n8n's Wait node so they do not all hit at the same time.
 
 #### 3. Customer Onboarding
 
@@ -71,72 +101,172 @@ When a new customer signs up:
 
 **Time saved: 30 minutes per customer**
 
+**Trigger:** Webhook from my payment processor. When a checkout completes, the webhook fires with customer email, plan type, and payment details.
+
+**Node 1 - Create Accounts:** Parallel HTTP Request nodes that create the customer in my project management tool, shared drive, and communication channel.
+
+**Node 2 - Welcome Sequence:** Triggers a 3-email welcome sequence via Resend. Email 1 sends immediately with credentials. Email 2 sends after 24 hours with tutorials. Email 3 sends after 72 hours asking if they need help.
+
+**Node 3 - Cal.com Booking Link:** Generates a unique booking link for the onboarding call and includes it in the first welcome email.
+
 ## The AI Layer
 
 I use AI (Claude API) to handle tasks that need judgment:
 
-- **Email drafting** - First drafts of responses
-- **Content summarization** - Turn long content into snippets
-- **Data extraction** - Pull structured data from unstructured text
-- **Categorization** - Sort and tag incoming requests
+- **Email drafting** - First drafts of responses based on the sender's context and my previous replies
+- **Content summarization** - Turn long-form content into platform-specific snippets
+- **Data extraction** - Pull structured data from unstructured text like invoices, proposals, and meeting notes
+- **Categorization** - Sort and tag incoming requests by urgency, topic, and required action
+
+The key to making AI work reliably inside automations is structured prompting. Here is the pattern I use for content repurposing:
+
+```
+You are a content repurposing assistant. Given the following blog post,
+generate social media content in JSON format.
+
+Blog post:
+{full_post_text}
+
+Return ONLY valid JSON with these keys:
+- "key_points": array of 3-5 bullet points (max 100 chars each)
+- "twitter_thread": array of 4-6 tweets (max 270 chars each)
+- "linkedin_post": string, 150-200 words, professional tone
+- "newsletter_blurb": string, 2-3 sentences with [LINK] placeholder
+```
+
+The critical detail is asking for JSON output. This lets the next n8n node parse the response and route each piece of content to the right platform without manual formatting.
+
+I set the Claude API temperature to 0.1 for extraction tasks to keep outputs deterministic. For content generation, I use 0.7 to get more creative variation.
+
+## Cost Breakdown
+
+Here is what my full automation stack costs per month:
+
+| Item | Service | Monthly Cost |
+|------|---------|-------------|
+| VPS (n8n host) | Hetzner CX22 | $5 |
+| Domain + DNS | Cloudflare | $0 (free tier) |
+| AI API calls | Claude API | ~$15 |
+| Email sending | Resend | $0 (free tier) |
+| CRM | Attio | $0 (free tier) |
+| Scheduling | Cal.com | $0 (self-hosted) |
+| Lead enrichment | Clearbit | ~$25 |
+| Monitoring | Uptime Kuma | $0 (self-hosted) |
+| **Total** | | **~$45/month** |
+
+At $45/month to save 20+ hours per week, the math is clear. The biggest cost variable is AI API usage. I keep it low by using Claude Haiku for simple classification tasks and only routing to Sonnet for content generation.
+
+## Automation ROI Calculator
+
+Before building any automation, I run it through a simple framework.
+
+**Step 1: Measure the manual cost.**
+
+`Manual Cost = (Minutes per occurrence) x (Occurrences per month) x (Hourly rate / 60)`
+
+Example: Lead processing takes 45 minutes, happens 20 times per month, rate is $150/hour. That is $2,250/month on manual lead processing.
+
+**Step 2: Estimate the build cost.**
+
+`Build Cost = (Estimated hours to build) x (Hourly rate)`
+
+Example: Building the lead pipeline took 6 hours. That is $900 one-time cost.
+
+**Step 3: Calculate ongoing cost.**
+
+API fees plus tool fees plus maintenance hours per month. About $30/month for the lead pipeline.
+
+**Step 4: Find the payback period.**
+
+`Payback Period = Build Cost / (Manual Cost - Ongoing Cost)`
+
+Example: $900 / ($2,250 - $30) = 0.4 months. The lead pipeline paid for itself in under two weeks.
+
+**My rule of thumb:** If the payback period is under 2 months, build it immediately. Under 6 months, add it to the queue. Over 6 months, revisit later.
 
 ## Results
 
 After 3 months of building automations:
 
-- **20+ hours saved per week**
-- **Zero manual data entry**
-- **Faster response times** (minutes vs hours)
-- **Fewer dropped balls**
+- **20+ hours saved per week** across all workflows combined
+- **Zero manual data entry** for leads, customers, and content tracking
+- **Faster response times** (minutes vs hours) for lead inquiries
+- **Fewer dropped balls** because nothing depends on me remembering to do it
+
+The compounding effect is real. After month one, I saved maybe 8 hours per week. But each automation I built freed up time to build the next one. By month three, the full stack was running and I had reclaimed the equivalent of 2.5 working days per week.
 
 ## Getting Started
 
 ### Week 1: Audit Your Tasks
 
-Track everything you do for a week. Tag each task:
+Track everything you do for a week. I used a simple spreadsheet with columns for task name, time spent, frequency, and category. Tag each task:
 
-- `[A]` - Automatable now
-- `[P]` - Partially automatable
-- `[M]` - Must be manual
+- `[A]` - Automatable now. Clear rules, tools with APIs, no creative judgment needed.
+- `[P]` - Partially automatable. Parts can be handled by machines but a human needs to review.
+- `[M]` - Must be manual. Strategy calls, relationship building, creative direction.
+
+**Tool recommendation:** Toggl Track (free tier) for time tracking. At the end of the week, export the CSV and sort by total hours descending. Your top 5 time sinks are your automation candidates.
 
 ### Week 2: Quick Wins
 
 Start with high-frequency, low-complexity tasks:
 
-- Email sorting and labeling
-- Calendar scheduling
-- Social media posting
-- Data backups
+- **Email sorting and labeling** - Gmail filters or n8n watching your inbox to auto-categorize incoming mail
+- **Calendar scheduling** - Replace the "when are you free?" back-and-forth with Cal.com
+- **Social media posting** - Set up the RSS-to-social pipeline described above
+- **Data backups** - n8n cron trigger that runs nightly, exports critical data to cloud storage
+
+**Tool recommendation:** Get n8n running first. Use Docker Compose on a $5 VPS. Build one automation per day during this week.
 
 ### Week 3+: Build the Pipeline
 
-Tackle your core business processes:
+Tackle your core business processes one at a time:
 
-- Lead management
-- Customer communication
-- Content creation
-- Reporting
+- **Lead management** - Start with webhook-to-CRM. Add enrichment and scoring after the basic flow works.
+- **Customer communication** - Build email templates in Resend, then wire them to triggers in n8n.
+- **Content creation** - The AI-powered content repurposing pipeline has more moving parts. Test each branch separately before connecting them.
+- **Reporting** - Weekly n8n workflow that pulls key metrics and sends a formatted summary every Monday morning.
+
+## Mistakes I Made
+
+These are hard-won lessons from building automations over the past year.
+
+**1. Building without monitoring first.** My lead processing pipeline silently failed for 3 days because the Clearbit API changed a response field. Twelve leads got zero follow-up. Now every workflow has error handling nodes that post to Slack.
+
+**2. Making workflows too complex too early.** My first content distribution workflow tried to do everything at once. It broke constantly. I rebuilt it as 3 simple workflows that each do one thing well. Start linear. Add branches after the core path is stable.
+
+**3. Not versioning my workflows.** I accidentally overwrote a working workflow with a broken edit and had no way to roll back. Now I export every workflow as JSON to a Git repo before making changes.
+
+**4. Ignoring rate limits.** I hit the Twitter API rate limit when my content workflow tried to post 15 queued articles at once. Now I use n8n's Wait node to space out API calls.
+
+**5. Automating before standardizing.** I tried to automate client onboarding before I had a consistent onboarding process. The automation just made inconsistency happen faster. Standardize the manual process first, then automate it.
+
+**6. Trusting AI output without validation.** Early on, I let Claude-generated emails send directly without review. One addressed a lead by the wrong name because the enrichment data had a nickname. Now every AI-generated customer-facing message goes through a validation step.
 
 ## Tools I Recommend
 
-| Category | Tool | Why |
-|----------|------|-----|
-| Workflow | n8n | Flexibility + self-hosted |
-| AI | Claude API | Best reasoning |
-| Email | Resend | Developer-friendly |
-| CRM | Attio | Modern + API-first |
-| Scheduling | Cal.com | Open source |
+| Category | Tool | Why | Free Tier |
+|----------|------|-----|-----------|
+| Workflow | n8n | Flexibility + self-hosted, no per-execution fees | Unlimited (self-hosted) |
+| AI | Claude API | Best reasoning, reliable JSON output | Pay per token |
+| Email | Resend | Developer-friendly, great API | 3,000 emails/mo |
+| CRM | Attio | Modern, API-first design | Free for individuals |
+| Scheduling | Cal.com | Open source, self-hostable | Free (self-hosted) |
+| Monitoring | Uptime Kuma | Self-hosted uptime monitoring | Free (self-hosted) |
+| Lead Enrichment | Clearbit | Accurate company data from email | Pay per lookup |
 
 ## Common Mistakes
 
-1. **Over-automating** - Some tasks need human touch
-2. **No error handling** - Automations fail silently
-3. **Complex flows first** - Start simple
-4. **No monitoring** - You need alerts
+1. **Over-automating** - Some tasks need human touch. Strategy calls, creative direction, and sensitive conversations should stay manual. Automate the prep work around them instead.
+2. **No error handling** - Automations fail silently. Every n8n workflow should have an error branch that notifies you. Test the error paths, not just the happy paths.
+3. **Complex flows first** - Start simple. Get a basic webhook-to-CRM flow working before you add AI enrichment and multi-channel notifications. Add complexity in layers.
+4. **No monitoring** - You need alerts for when your VPS goes down, when workflows error, and when API rate limits are hit. Uptime Kuma plus n8n error handlers cover 95% of this.
 
 ## Conclusion
 
-Automation is not about replacing yourself. It is about freeing yourself to do the work that actually matters - the creative, strategic, human work that builds your business.
+Automation is not about replacing yourself. It is about freeing yourself to do the work that actually matters: the creative, strategic, human work that builds your business.
+
+The total investment to get here was about 40 hours of setup time spread over 3 months and $45/month in ongoing costs. In return, I get back 80+ hours per month. That is not a productivity hack. That is a structural advantage.
 
 Start small, iterate fast, and watch your hours come back.
 

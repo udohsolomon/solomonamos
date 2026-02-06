@@ -1,8 +1,40 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+const rateLimit = new Map<string, { count: number; resetTime: number }>();
+const RATE_LIMIT_MAX = 3;
+const RATE_LIMIT_WINDOW_MS = 60 * 1000;
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const entry = rateLimit.get(ip);
+
+  if (!entry || now > entry.resetTime) {
+    rateLimit.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW_MS });
+    return false;
+  }
+
+  entry.count++;
+  return entry.count > RATE_LIMIT_MAX;
+}
+
 export async function POST(request: NextRequest) {
   try {
-    const { email } = await request.json();
+    const ip = request.headers.get('x-forwarded-for') || 'unknown';
+
+    if (isRateLimited(ip)) {
+      return NextResponse.json(
+        { error: 'Too many requests. Please try again later.' },
+        { status: 429 }
+      );
+    }
+
+    const body = await request.json();
+    const { email, website } = body;
+
+    // Honeypot: if the hidden "website" field is filled, it's a bot
+    if (website) {
+      return NextResponse.json({ success: true });
+    }
 
     if (!email || !email.includes('@')) {
       return NextResponse.json(
@@ -14,14 +46,7 @@ export async function POST(request: NextRequest) {
     const publicationId = process.env.BEEHIIV_PUBLICATION_ID;
     const apiKey = process.env.BEEHIIV_API_KEY;
 
-    console.log('Beehiiv config check:', {
-      hasPublicationId: !!publicationId,
-      hasApiKey: !!apiKey,
-      publicationIdLength: publicationId?.length || 0,
-    });
-
     if (!publicationId || !apiKey) {
-      console.error('Beehiiv credentials not configured');
       return NextResponse.json(
         { error: 'Newsletter service not configured' },
         { status: 500 }
@@ -29,7 +54,6 @@ export async function POST(request: NextRequest) {
     }
 
     const beehiivUrl = `https://api.beehiiv.com/v2/publications/${publicationId}/subscriptions`;
-    console.log('Calling Beehiiv API:', beehiivUrl);
 
     const response = await fetch(beehiivUrl, {
       method: 'POST',
@@ -44,33 +68,17 @@ export async function POST(request: NextRequest) {
       }),
     });
 
-    console.log('Beehiiv response status:', response.status);
-
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error('Beehiiv API error response:', errorText);
-
-      let errorData;
-      try {
-        errorData = JSON.parse(errorText);
-      } catch {
-        errorData = { raw: errorText };
-      }
-
       return NextResponse.json(
-        { error: 'Failed to subscribe', details: errorData },
+        { error: 'Failed to subscribe' },
         { status: response.status }
       );
     }
 
-    const data = await response.json();
-    console.log('Beehiiv success:', data);
-
     return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error('Newsletter subscription error:', error);
+  } catch {
     return NextResponse.json(
-      { error: 'Internal server error', message: String(error) },
+      { error: 'Internal server error' },
       { status: 500 }
     );
   }

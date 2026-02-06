@@ -320,6 +320,68 @@ html {
 }
 
 /* ============================================
+   SYNTAX HIGHLIGHTING (highlight.js)
+   Custom dark theme matching site aesthetic
+   ============================================ */
+
+.hljs {
+  color: #c9d1d9;
+  background: transparent;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #525252;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-type {
+  color: #ff7b72;
+}
+
+.hljs-string,
+.hljs-attr,
+.hljs-addition {
+  color: #a5d6ff;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable {
+  color: #79c0ff;
+}
+
+.hljs-function .hljs-title,
+.hljs-title.function_ {
+  color: #d2a8ff;
+}
+
+.hljs-built_in {
+  color: #ffa657;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #00d9ff;
+}
+
+.hljs-meta {
+  color: #888;
+}
+
+.hljs-deletion {
+  color: #ffa198;
+  background-color: rgba(255, 129, 130, 0.1);
+}
+
+.hljs-addition {
+  background-color: rgba(0, 217, 255, 0.1);
+}
+
+/* ============================================
    MUTED-DARK COLOR UTILITIES
    Fallback for Tailwind text-muted-dark class
    ============================================ */

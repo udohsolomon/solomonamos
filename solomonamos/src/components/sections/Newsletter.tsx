@@ -6,6 +6,7 @@ import { Send, CheckCircle, AlertCircle } from 'lucide-react';
 
 export function Newsletter() {
   const [email, setEmail] = useState('');
+  const [website, setWebsite] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -20,7 +21,7 @@ export function Newsletter() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, website }),
       });
 
       if (response.ok) {
@@ -67,7 +68,11 @@ export function Newsletter() {
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-accent font-mono text-sm">
                   {'>'}
                 </span>
+                <label htmlFor="newsletter-email" className="sr-only">
+                  Email address
+                </label>
                 <input
+                  id="newsletter-email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -75,6 +80,16 @@ export function Newsletter() {
                   className="w-full pl-8 pr-4 py-3 bg-background border border-border text-foreground font-mono text-sm placeholder:text-muted-dark focus:outline-none focus:border-accent transition-colors"
                   disabled={status === 'loading' || status === 'success'}
                   required
+                />
+                {/* Honeypot field - hidden from real users */}
+                <input
+                  type="text"
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
+                  className="absolute opacity-0 pointer-events-none h-0 w-0"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
                 />
               </div>
               <button
@@ -99,18 +114,20 @@ export function Newsletter() {
             </div>
 
             {/* Status messages */}
-            {status === 'success' && (
-              <div className="mt-4 flex items-center justify-center gap-2 text-lime text-sm font-mono">
-                <CheckCircle className="w-4 h-4" />
-                Welcome! Check your inbox to confirm.
-              </div>
-            )}
-            {status === 'error' && (
-              <div className="mt-4 flex items-center justify-center gap-2 text-red-500 text-sm font-mono">
-                <AlertCircle className="w-4 h-4" />
-                Something went wrong. Please try again.
-              </div>
-            )}
+            <div aria-live="polite" aria-atomic="true">
+              {status === 'success' && (
+                <div className="mt-4 flex items-center justify-center gap-2 text-lime text-sm font-mono">
+                  <CheckCircle className="w-4 h-4" />
+                  Welcome! Check your inbox to confirm.
+                </div>
+              )}
+              {status === 'error' && (
+                <div className="mt-4 flex items-center justify-center gap-2 text-red-500 text-sm font-mono">
+                  <AlertCircle className="w-4 h-4" />
+                  Something went wrong. Please try again.
+                </div>
+              )}
+            </div>
           </form>
 
           {/* Trust indicators */}

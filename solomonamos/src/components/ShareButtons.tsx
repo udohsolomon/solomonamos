@@ -1,17 +1,23 @@
 'use client';
 
-import { Twitter, Linkedin, Share2 } from 'lucide-react';
+import { useState } from 'react';
+import { Twitter, Linkedin, Check, Share2 } from 'lucide-react';
 
 interface ShareButtonsProps {
   title: string;
   slug: string;
 }
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://solomonamos.com';
+
 export function ShareButtons({ title, slug }: ShareButtonsProps) {
-  const url = `https://solomonamos.com/blog/${slug}`;
+  const [copied, setCopied] = useState(false);
+  const url = `${siteUrl}/blog/${slug}`;
 
   const copyToClipboard = () => {
     navigator.clipboard?.writeText(url);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -37,9 +43,9 @@ export function ShareButtons({ title, slug }: ShareButtonsProps) {
       <button
         onClick={copyToClipboard}
         className="w-10 h-10 border border-border flex items-center justify-center text-muted hover:text-accent hover:border-accent transition-colors"
-        aria-label="Copy link"
+        aria-label={copied ? 'Link copied' : 'Copy link'}
       >
-        <Share2 className="w-4 h-4" />
+        {copied ? <Check className="w-4 h-4 text-lime" /> : <Share2 className="w-4 h-4" />}
       </button>
     </div>
   );

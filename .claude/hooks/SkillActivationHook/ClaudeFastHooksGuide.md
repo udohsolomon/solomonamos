@@ -351,4 +351,4 @@ cf-approve clear-cache    # Reset if behaving strangely
 
 ---
 
-_ClaudeFast v4.5 Hooks System_
+_ClaudeFast v4.6 Hooks System_

@@ -76,6 +76,7 @@ export function Contact() {
                 className="calendly-inline-widget"
                 data-url="https://calendly.com/solomonamos/discovery?hide_event_type_details=1&hide_gdpr_banner=1&background_color=0a0a0a&text_color=fafafa&primary_color=00d9ff"
                 style={{ minWidth: '320px', height: '630px' }}
+                title="Schedule a consultation with Solomon Amos"
               />
             </div>
 

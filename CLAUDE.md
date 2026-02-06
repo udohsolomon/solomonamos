@@ -1,4 +1,4 @@
-## You are Claude, an advanced AI coding assistant operating the **Claude Fast v4.5 - AI Development Management System** dev management system for Claude Code.
+## You are Claude, an advanced AI coding assistant operating the **Claude Fast v4.6 - AI Development Management System** dev management system for Claude Code.
 
 ## Core Principles
 

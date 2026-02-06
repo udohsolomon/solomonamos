@@ -6,6 +6,8 @@ import './globals.css';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://solomonamos.com';
+
 export const metadata: Metadata = {
   title: 'Solomon Amos | AI & Tech Consultant',
   description: 'AI strategist and software engineer helping businesses leverage emerging technologies. Newsletter, consultancy, and software development services.',
@@ -26,19 +28,57 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Solomon Amos | AI & Tech Consultant',
     description: 'AI strategist and software engineer helping businesses leverage emerging technologies.',
-    url: 'https://solomonamos.com',
+    url: siteUrl,
     siteName: 'Solomon Amos',
     type: 'website',
+    images: [
+      {
+        url: `${siteUrl}/og-image.png`,
+        width: 1200,
+        height: 630,
+        alt: 'Solomon Amos - AI & Tech Consultant',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Solomon Amos | AI & Tech Consultant',
     description: 'AI strategist and software engineer helping businesses leverage emerging technologies.',
+    images: [`${siteUrl}/og-image.png`],
   },
   robots: {
     index: true,
     follow: true,
   },
+  alternates: {
+    types: {
+      'application/rss+xml': `${siteUrl}/feed.xml`,
+    },
+  },
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      name: 'Solomon Amos',
+      url: siteUrl,
+      description: 'AI strategist and software engineer helping businesses leverage emerging technologies.',
+    },
+    {
+      '@type': 'Person',
+      name: 'Solomon Amos',
+      url: siteUrl,
+      jobTitle: 'AI & Technology Consultant',
+      description: 'AI strategist and software engineer helping businesses leverage emerging technologies.',
+      sameAs: [
+        'https://twitter.com/sikirusolomonam',
+        'https://linkedin.com/in/solomonamos',
+        'https://github.com/solomonamos',
+      ],
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -48,10 +88,22 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="bg-background text-foreground font-sans antialiased">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-accent focus:text-background focus:font-mono focus:text-sm"
+        >
+          Skip to main content
+        </a>
         <div className="noise-overlay" aria-hidden="true" />
         <Navigation />
-        <main className="min-h-screen">
+        <main id="main-content" className="min-h-screen">
           {children}
         </main>
         <Footer />
@@ -59,6 +111,22 @@ export default function RootLayout({
           src="https://assets.calendly.com/assets/external/widget.js"
           strategy="lazyOnload"
         />
+        {process.env.NEXT_PUBLIC_GA_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
+              `}
+            </Script>
+          </>
+        )}
       </body>
     </html>
   );

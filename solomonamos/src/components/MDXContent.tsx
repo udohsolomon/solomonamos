@@ -1,18 +1,77 @@
 'use client';
 
+import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import rehypeHighlight from 'rehype-highlight';
+import { Check, Copy } from 'lucide-react';
+
+function CopyButton({ code }: { code: string }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard?.writeText(code);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <button
+      onClick={handleCopy}
+      className="absolute top-3 right-3 p-1.5 border border-border text-muted hover:text-accent hover:border-accent transition-colors bg-background/80 backdrop-blur-sm"
+      aria-label={copied ? 'Copied' : 'Copy code'}
+    >
+      {copied ? <Check className="w-3.5 h-3.5 text-lime" /> : <Copy className="w-3.5 h-3.5" />}
+    </button>
+  );
+}
+
+function extractTextContent(node: React.ReactNode): string {
+  if (typeof node === 'string') return node;
+  if (typeof node === 'number') return String(node);
+  if (!node) return '';
+  if (Array.isArray(node)) return node.map(extractTextContent).join('');
+  if (typeof node === 'object' && 'props' in node) {
+    return extractTextContent((node as React.ReactElement).props.children);
+  }
+  return '';
+}
+
+function generateHeadingId(children: React.ReactNode): string {
+  const text = extractTextContent(children);
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .trim();
+}
 
 const components = {
-  h1: ({ children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h1 className="text-3xl font-medium text-foreground mt-10 mb-4" {...props}>{children}</h1>
-  ),
-  h2: ({ children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h2 className="text-2xl font-medium text-foreground mt-10 mb-4" {...props}>{children}</h2>
-  ),
-  h3: ({ children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h3 className="text-xl font-medium text-foreground mt-8 mb-3" {...props}>{children}</h3>
-  ),
+  h1: ({ children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => {
+    const id = generateHeadingId(children);
+    return <h1 id={id} className="text-3xl font-medium text-foreground mt-10 mb-4 scroll-mt-24" {...props}>{children}</h1>;
+  },
+  h2: ({ children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => {
+    const id = generateHeadingId(children);
+    return (
+      <h2 id={id} className="text-2xl font-medium text-foreground mt-10 mb-4 scroll-mt-24 group" {...props}>
+        <a href={`#${id}`} className="no-underline hover:text-accent transition-colors">
+          {children}
+        </a>
+      </h2>
+    );
+  },
+  h3: ({ children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => {
+    const id = generateHeadingId(children);
+    return (
+      <h3 id={id} className="text-xl font-medium text-foreground mt-8 mb-3 scroll-mt-24" {...props}>
+        <a href={`#${id}`} className="no-underline hover:text-accent transition-colors">
+          {children}
+        </a>
+      </h3>
+    );
+  },
   p: ({ children, ...props }: React.HTMLAttributes<HTMLParagraphElement>) => (
     <p className="text-muted leading-relaxed mb-4" {...props}>{children}</p>
   ),
@@ -42,11 +101,17 @@ const components = {
     }
     return <code className={className} {...props}>{children}</code>;
   },
-  pre: ({ children, ...props }: React.HTMLAttributes<HTMLPreElement>) => (
-    <pre className="p-4 bg-muted-darker border border-border font-mono text-sm overflow-x-auto my-6 rounded" {...props}>
-      {children}
-    </pre>
-  ),
+  pre: ({ children, ...props }: React.HTMLAttributes<HTMLPreElement>) => {
+    const codeText = extractTextContent(children);
+    return (
+      <div className="relative group my-6">
+        <pre className="p-4 bg-muted-darker border border-border font-mono text-sm overflow-x-auto rounded" {...props}>
+          {children}
+        </pre>
+        <CopyButton code={codeText} />
+      </div>
+    );
+  },
   hr: () => <hr className="border-border my-8" />,
   strong: ({ children, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <strong className="text-foreground font-medium" {...props}>{children}</strong>
@@ -79,8 +144,9 @@ interface MDXContentProps {
 
 export function MDXContent({ content }: MDXContentProps) {
   return (
-    <ReactMarkdown 
+    <ReactMarkdown
       remarkPlugins={[remarkGfm]}
+      rehypePlugins={[rehypeHighlight]}
       components={components as any}
     >
       {content}
