@@ -176,7 +176,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             <li>
               <ChevronRight className="w-3 h-3" />
             </li>
-            <li className="text-muted-dark truncate max-w-[200px]" aria-current="page">
+            <li className="text-muted-dark truncate max-w-[120px] sm:max-w-[200px] md:max-w-[300px]" aria-current="page">
               {post.title}
             </li>
           </ol>
@@ -222,7 +222,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
         {/* Share */}
         <div className="mt-16 pt-8 border-t border-border">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <span className="text-sm font-mono text-muted">Share this article</span>
             <ShareButtons title={post.title} slug={slug} />
           </div>
@@ -271,7 +271,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
         {/* Previous / Next Navigation */}
         {(prev || next) && (
-          <div className="mt-12 grid grid-cols-2 gap-4">
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-4">
             {prev ? (
               <Link
                 href={`/blog/${prev.slug}`}

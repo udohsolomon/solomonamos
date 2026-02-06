@@ -20,7 +20,7 @@ export function Writing() {
   return (
     <section id="writing" className="py-24 border-t border-border bg-muted-darker/20">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="flex items-end justify-between mb-12">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
           <SectionHeader
             label="03"
             title="Writing"

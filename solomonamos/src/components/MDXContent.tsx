@@ -104,8 +104,8 @@ const components = {
   pre: ({ children, ...props }: React.HTMLAttributes<HTMLPreElement>) => {
     const codeText = extractTextContent(children);
     return (
-      <div className="relative group my-6">
-        <pre className="p-4 bg-muted-darker border border-border font-mono text-sm overflow-x-auto rounded" {...props}>
+      <div className="relative group my-6 -mx-2 sm:mx-0">
+        <pre className="p-4 bg-muted-darker border border-border font-mono text-xs sm:text-sm overflow-x-auto rounded" {...props}>
           {children}
         </pre>
         <CopyButton code={codeText} />
@@ -117,8 +117,8 @@ const components = {
     <strong className="text-foreground font-medium" {...props}>{children}</strong>
   ),
   table: ({ children, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
-    <div className="overflow-x-auto my-6">
-      <table className="min-w-full border border-border" {...props}>{children}</table>
+    <div className="overflow-x-auto my-6 -mx-2 sm:mx-0">
+      <table className="min-w-full border border-border text-xs sm:text-sm" {...props}>{children}</table>
     </div>
   ),
   thead: ({ children, ...props }: React.HTMLAttributes<HTMLTableSectionElement>) => (

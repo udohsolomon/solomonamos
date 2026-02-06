@@ -48,7 +48,7 @@ export function Hero() {
             </div>
 
             {/* Stats */}
-            <div className="flex gap-8 pt-4">
+            <div className="flex flex-wrap gap-6 sm:gap-8 pt-4">
               <div>
                 <div className="text-2xl font-mono text-foreground">50+</div>
                 <div className="text-xs text-muted font-mono">Projects Delivered</div>

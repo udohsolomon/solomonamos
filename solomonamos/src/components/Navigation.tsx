@@ -36,12 +36,24 @@ export function Navigation() {
     return () => document.removeEventListener('keydown', handleEscape);
   }, [isMobileMenuOpen]);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
+
   return (
     <header
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-        isScrolled
-          ? 'bg-background/90 backdrop-blur-md border-b border-border'
+        isScrolled || isMobileMenuOpen
+          ? 'bg-background/95 backdrop-blur-md border-b border-border'
           : 'bg-transparent'
       )}
     >
