@@ -27,8 +27,8 @@ export function Hero() {
             </h1>
             
             <p className="text-lg text-muted max-w-lg leading-relaxed">
-              I help businesses leverage AI and emerging technologies to build 
-              intelligent systems that scale. From strategy to implementation.
+              I help organisations design and implement secure, scalable, and
+              AI-powered solutions that accelerate growth and efficiency.
             </p>
             
             <div className="flex flex-wrap gap-4">
@@ -40,10 +40,10 @@ export function Hero() {
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
-                href="#services"
+                href="#products"
                 className="inline-flex items-center gap-2 px-6 py-3 border border-border text-muted font-mono text-sm hover:border-accent hover:text-accent transition-colors"
               >
-                View Services
+                View Products
               </Link>
             </div>
 
@@ -73,22 +73,22 @@ export function Hero() {
                     whoami
                   </TerminalLine>
                   <TerminalLine prefix=" " delay={300}>
-                    <span className="text-foreground font-medium">Solomon Amos</span> - AI Strategist & Engineer
+                    <span className="text-foreground font-medium">Solomon Amos</span> - Technical Architect
                   </TerminalLine>
                   <TerminalLine prefix="$" delay={500}>
                     cat skills.txt
                   </TerminalLine>
                   <TerminalLine prefix=" " delay={700}>
-                    <span className="text-accent">{'['}</span> AI/ML Systems <span className="text-accent">{']'}</span>
+                    <span className="text-accent">{'['}</span> AI & Automation <span className="text-accent">{']'}</span>
                   </TerminalLine>
                   <TerminalLine prefix=" " delay={800}>
-                    <span className="text-accent">{'['}</span> Full-Stack Development <span className="text-accent">{']'}</span>
-                  </TerminalLine>
-                  <TerminalLine prefix=" " delay={900}>
                     <span className="text-accent">{'['}</span> Cloud Architecture <span className="text-accent">{']'}</span>
                   </TerminalLine>
+                  <TerminalLine prefix=" " delay={900}>
+                    <span className="text-accent">{'['}</span> Security & Compliance <span className="text-accent">{']'}</span>
+                  </TerminalLine>
                   <TerminalLine prefix=" " delay={1000}>
-                    <span className="text-accent">{'['}</span> Automation & Integration <span className="text-accent">{']'}</span>
+                    <span className="text-accent">{'['}</span> Enterprise Solutions <span className="text-accent">{']'}</span>
                   </TerminalLine>
                   <TerminalLine prefix="$" delay={1200}>
                     ./start_collaboration.sh

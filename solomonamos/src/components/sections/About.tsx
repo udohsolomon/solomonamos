@@ -1,27 +1,42 @@
 import { SectionHeader } from '@/components/ui/SectionHeader';
-import { Cpu, Code, Lightbulb, Zap } from 'lucide-react';
+import { Bot, Cloud, Shield, Database, Server } from 'lucide-react';
 
-const values = [
+const specialisations = [
   {
-    icon: Lightbulb,
-    title: 'Strategic Thinking',
-    description: 'Every project starts with understanding the bigger picture and aligning technology with business goals.',
+    icon: Bot,
+    title: 'AI & Automation',
+    description: 'Intelligent workflows, AI-driven decision systems, and ML model integration.',
   },
   {
-    icon: Code,
-    title: 'Technical Excellence',
-    description: 'Clean, maintainable code and robust architectures that stand the test of time and scale.',
+    icon: Cloud,
+    title: 'Cloud Architecture',
+    description: 'AWS, Azure, and multi-cloud migrations, optimisations, and cost management.',
   },
   {
-    icon: Cpu,
-    title: 'AI-First Approach',
-    description: 'Leveraging the latest in AI and machine learning to build intelligent, adaptive systems.',
+    icon: Server,
+    title: 'Enterprise Solutions',
+    description: 'Microservices, containerisation (Kubernetes, Docker), DevOps and DevSecOps.',
   },
   {
-    icon: Zap,
-    title: 'Rapid Execution',
-    description: 'Moving fast without breaking things. Delivering value early and iterating based on feedback.',
+    icon: Shield,
+    title: 'Security & Compliance',
+    description: 'Cloud security frameworks, IAM, Just-in-Time access, and data protection.',
   },
+  {
+    icon: Database,
+    title: 'Data & Analytics',
+    description: 'ML/AI pipelines, real-time analytics, and scalable data platforms.',
+  },
+];
+
+const certifications = [
+  'AWS Certified Solutions Architect - Professional',
+  'AWS Certified DevOps Engineer - Professional',
+  'AWS Certified Security - Specialty',
+  'AWS Certified Advanced Networking - Specialty',
+  'AWS Certified Machine Learning - Specialty',
+  'AWS Certified Data Analytics - Specialty',
+  'AWS Certified AI Practitioner',
 ];
 
 export function About() {
@@ -34,28 +49,45 @@ export function About() {
             <SectionHeader
               label="01"
               title="About Me"
-              description="The intersection of strategy and execution."
+              description="Where strategy meets execution."
             />
-            
+
             <div className="space-y-6 text-muted leading-relaxed">
               <p>
-                I am Solomon Amos, an AI strategist and software engineer with over 8 years 
-                of experience building technology solutions for businesses across industries.
+                I help organisations design and implement secure, scalable, and AI-powered
+                solutions that accelerate growth and efficiency. With over 8 years of experience
+                across Fortune 500 companies, start-ups, government agencies, and small businesses
+                worldwide, I bring a rare blend of deep technical expertise and strategic thinking.
               </p>
               <p>
-                My journey started in traditional software development, but I quickly became 
-                fascinated by the potential of AI and machine learning to transform how we 
-                build and interact with software.
+                Currently, I work as a Technical Architect at Accenture, delivering large-scale
+                AI and automation solutions in highly regulated environments where security, ethics,
+                and performance are non-negotiable.
               </p>
               <p>
-                Today, I help companies navigate the rapidly evolving AI landscape - from 
-                developing custom AI solutions to building automated workflows that save 
-                thousands of hours.
+                I also hold a PhD in Computer Science with research in machine learning and
+                security, giving me a strong foundation in both the theory and practice of building
+                intelligent systems.
               </p>
               <p className="text-foreground font-medium">
-I believe the best technology is invisible - it just works, making lives
-                easier and businesses more efficient.
+                I believe the best technology is invisible - it just works, making organisations
+                more efficient and people more productive.
               </p>
+            </div>
+
+            {/* Certifications */}
+            <div className="mt-8 pt-8 border-t border-border">
+              <div className="font-mono text-xs text-accent mb-4">
+                {'// CERTIFICATIONS'}
+              </div>
+              <div className="space-y-2">
+                {certifications.map((cert) => (
+                  <div key={cert} className="flex items-start gap-2 text-sm font-mono text-muted">
+                    <span className="text-accent flex-shrink-0">+</span>
+                    {cert}
+                  </div>
+                ))}
+              </div>
             </div>
 
             {/* Signature */}
@@ -64,31 +96,31 @@ I believe the best technology is invisible - it just works, making lives
                 <span className="text-accent">{'>'}</span> Solomon Amos
               </div>
               <div className="text-xs text-muted-dark mt-1">
-                AI & Technology Consultant
+                Technical Architect | PhD in Computer Science
               </div>
             </div>
           </div>
 
-          {/* Right: Values */}
-          <div className="space-y-6">
+          {/* Right: Specialisations */}
+          <div className="space-y-4">
             <div className="font-mono text-xs text-accent mb-4">
-              {'// CORE_VALUES'}
+              {'// SPECIALISATIONS'}
             </div>
-            {values.map((value, index) => (
+            {specialisations.map((spec, index) => (
               <div
-                key={value.title}
-                className="group p-6 border border-border hover:border-accent/50 transition-colors"
+                key={spec.title}
+                className="group p-5 border border-border hover:border-accent/50 transition-colors"
               >
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 border border-accent/30 flex items-center justify-center flex-shrink-0 group-hover:border-accent transition-colors">
-                    <value.icon className="w-5 h-5 text-accent" />
+                    <spec.icon className="w-5 h-5 text-accent" />
                   </div>
                   <div>
                     <div className="font-mono text-xs text-muted-dark mb-1">
                       {String(index + 1).padStart(2, '0')}
                     </div>
-                    <h3 className="font-medium text-foreground mb-2">{value.title}</h3>
-                    <p className="text-sm text-muted">{value.description}</p>
+                    <h3 className="font-medium text-foreground mb-1">{spec.title}</h3>
+                    <p className="text-sm text-muted">{spec.description}</p>
                   </div>
                 </div>
               </div>

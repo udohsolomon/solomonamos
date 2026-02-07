@@ -1,6 +1,6 @@
 export { Hero } from './Hero';
 export { About } from './About';
-export { Services } from './Services';
+export { Products } from './Products';
 export { Writing } from './Writing';
 export { Newsletter } from './Newsletter';
 export { Contact } from './Contact';

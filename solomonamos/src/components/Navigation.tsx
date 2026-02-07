@@ -8,7 +8,7 @@ import { HashLink } from '@/components/HashLink';
 
 const navLinks = [
   { href: '#about', label: 'About' },
-  { href: '#services', label: 'Services' },
+  { href: '#products', label: 'Products' },
   { href: '#writing', label: 'Writing' },
   { href: '#newsletter', label: 'Newsletter' },
   { href: '#contact', label: 'Contact' },

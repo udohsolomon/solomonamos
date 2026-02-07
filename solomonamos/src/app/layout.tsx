@@ -9,9 +9,9 @@ import { Footer } from '@/components/Footer';
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://solomonamos.com';
 
 export const metadata: Metadata = {
-  title: 'Solomon Amos | AI & Tech Consultant',
-  description: 'AI strategist and software engineer helping businesses leverage emerging technologies. Newsletter, consultancy, and software development services.',
-  keywords: ['AI consultant', 'tech consultant', 'software development', 'AI strategy', 'automation'],
+  title: 'Solomon Amos | Technical Architect & AI Consultant',
+  description: 'Technical Architect helping organisations design and implement secure, scalable, and AI-powered solutions. PhD in Computer Science. AWS certified.',
+  keywords: ['technical architect', 'AI consultant', 'cloud architecture', 'AI strategy', 'automation', 'AWS', 'security'],
   authors: [{ name: 'Solomon Amos' }],
   icons: {
     icon: [
@@ -26,8 +26,8 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: 'Solomon Amos | AI & Tech Consultant',
-    description: 'AI strategist and software engineer helping businesses leverage emerging technologies.',
+    title: 'Solomon Amos | Technical Architect & AI Consultant',
+    description: 'Technical Architect helping organisations design and implement secure, scalable, and AI-powered solutions.',
     url: siteUrl,
     siteName: 'Solomon Amos',
     type: 'website',
@@ -36,14 +36,14 @@ export const metadata: Metadata = {
         url: `${siteUrl}/og-image.png`,
         width: 1200,
         height: 630,
-        alt: 'Solomon Amos - AI & Tech Consultant',
+        alt: 'Solomon Amos - Technical Architect & AI Consultant',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Solomon Amos | AI & Tech Consultant',
-    description: 'AI strategist and software engineer helping businesses leverage emerging technologies.',
+    title: 'Solomon Amos | Technical Architect & AI Consultant',
+    description: 'Technical Architect helping organisations design and implement secure, scalable, and AI-powered solutions.',
     images: [`${siteUrl}/og-image.png`],
   },
   robots: {
@@ -64,14 +64,14 @@ const jsonLd = {
       '@type': 'WebSite',
       name: 'Solomon Amos',
       url: siteUrl,
-      description: 'AI strategist and software engineer helping businesses leverage emerging technologies.',
+      description: 'Technical Architect helping organisations design and implement secure, scalable, and AI-powered solutions.',
     },
     {
       '@type': 'Person',
       name: 'Solomon Amos',
       url: siteUrl,
-      jobTitle: 'AI & Technology Consultant',
-      description: 'AI strategist and software engineer helping businesses leverage emerging technologies.',
+      jobTitle: 'Technical Architect',
+      description: 'Technical Architect with a PhD in Computer Science, helping organisations design and implement secure, scalable, and AI-powered solutions.',
       sameAs: [
         'https://x.com/laz_inc',
         'https://www.linkedin.com/in/solomonudoh/',
