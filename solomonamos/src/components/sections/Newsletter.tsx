@@ -8,12 +8,14 @@ export function Newsletter() {
   const [email, setEmail] = useState('');
   const [website, setWebsite] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
 
     setStatus('loading');
+    setErrorMessage('');
 
     try {
       const response = await fetch('/api/newsletter/subscribe', {
@@ -30,10 +32,12 @@ export function Newsletter() {
       } else {
         const data = await response.json();
         console.error('Subscription error:', data.error);
+        setErrorMessage(data.error || 'Something went wrong. Please try again.');
         setStatus('error');
       }
     } catch (error) {
       console.error('Network error:', error);
+      setErrorMessage('Network error. Please check your connection and try again.');
       setStatus('error');
     }
   };
@@ -124,7 +128,7 @@ export function Newsletter() {
               {status === 'error' && (
                 <div className="mt-4 flex items-center justify-center gap-2 text-red-500 text-sm font-mono">
                   <AlertCircle className="w-4 h-4" />
-                  Something went wrong. Please try again.
+                  {errorMessage}
                 </div>
               )}
             </div>

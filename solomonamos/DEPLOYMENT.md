@@ -78,7 +78,7 @@ Configure in Cloudflare Pages dashboard:
 - [ ] HTTPS certificate active
 - [ ] All pages load
 - [ ] Newsletter form configured with Beehiiv
-- [ ] Calendly link updated
+- [x] Calendly link updated
 - [ ] Social links updated in Footer
 - [ ] Test on mobile devices
 - [ ] Check Lighthouse scores

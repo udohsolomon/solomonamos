@@ -1,5 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+// Log env var presence on cold start (values are never logged)
+console.log('[Newsletter] Environment check:', {
+  hasPublicationId: !!process.env.BEEHIIV_PUBLICATION_ID,
+  hasApiKey: !!process.env.BEEHIIV_API_KEY,
+  publicationIdLength: process.env.BEEHIIV_PUBLICATION_ID?.length ?? 0,
+  apiKeyLength: process.env.BEEHIIV_API_KEY?.length ?? 0,
+});
+
 const rateLimit = new Map<string, { count: number; resetTime: number }>();
 const RATE_LIMIT_MAX = 3;
 const RATE_LIMIT_WINDOW_MS = 60 * 1000;
@@ -69,14 +77,35 @@ export async function POST(request: NextRequest) {
     });
 
     if (!response.ok) {
+      try {
+        const errorBody = await response.text();
+        console.error(`[Newsletter] Beehiiv API error: status=${response.status}, body=${errorBody}`);
+      } catch {
+        console.error(`[Newsletter] Beehiiv API error: status=${response.status}, could not read body`);
+      }
+
+      const userMessage =
+        response.status === 401 || response.status === 403
+          ? 'Newsletter service authentication error'
+          : response.status === 404
+            ? 'Newsletter service configuration error'
+            : response.status === 409
+              ? 'This email is already subscribed'
+              : response.status === 422
+                ? 'Invalid email address'
+                : response.status === 429
+                  ? 'Too many requests. Please try again later.'
+                  : 'Failed to subscribe. Please try again later.';
+
       return NextResponse.json(
-        { error: 'Failed to subscribe' },
+        { error: userMessage },
         { status: response.status }
       );
     }
 
     return NextResponse.json({ success: true });
-  } catch {
+  } catch (error) {
+    console.error('[Newsletter] Unhandled error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
