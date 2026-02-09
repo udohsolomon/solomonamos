@@ -1,6 +1,6 @@
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Card } from '@/components/ui/Card';
-import { ArrowUpRight, Workflow, Target, Building2, Brain, Layers, Database } from 'lucide-react';
+import { ArrowUpRight, Workflow, Target, Home, Building2, Brain, Layers, Database } from 'lucide-react';
 import Link from 'next/link';
 
 const products = [
@@ -19,6 +19,15 @@ const products = [
     features: ['Natural Language Prospecting', 'Signal-Based Enrichment', 'Multi-Channel Outreach', 'CRM Integration', 'Campaign Analytics'],
     tag: 'LEAD GEN',
     icon: Target,
+    highlight: true,
+  },
+  {
+    title: 'HomePortfolio',
+    description: 'Autonomous intelligence platform that turns 30 million UK property records into decisions. One question triggers autonomous specialised agents querying fifteen authoritative sources simultaneously, validating findings, and synthesising a professional investment memo in under thirty seconds.',
+    features: ['Autonomous Specialised Agents', '15 Authoritative Sources', '30M+ Property Records', 'Portfolio Memory', 'Investment Memo Generation'],
+    tag: 'PROPTECH',
+    icon: Home,
+    link: 'https://homeportfolio.com',
     highlight: true,
   },
 ];
@@ -61,7 +70,7 @@ export function Products() {
         />
 
         {/* Featured Products */}
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map((product) => (
             <Card key={product.title} className="group relative overflow-hidden">
               {/* Tag */}
