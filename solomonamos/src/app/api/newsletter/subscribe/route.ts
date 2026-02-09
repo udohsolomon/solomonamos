@@ -51,8 +51,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const publicationId = process.env.BEEHIIV_PUBLICATION_ID;
-    const apiKey = process.env.BEEHIIV_API_KEY;
+    const publicationId = process.env.BEEHIIV_PUBLICATION_ID?.trim();
+    const apiKey = process.env.BEEHIIV_API_KEY?.trim();
 
     if (!publicationId || !apiKey) {
       return NextResponse.json(
