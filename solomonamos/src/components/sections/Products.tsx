@@ -61,8 +61,24 @@ const trackRecord = [
 
 export function Products() {
   return (
-    <section id="products" className="py-24 border-t border-border bg-muted-darker/20">
-      <div className="max-w-6xl mx-auto px-6">
+    <section id="products" className="relative py-24 border-t border-border bg-background overflow-hidden">
+      {/* Grid pattern overlay */}
+      <div
+        className="absolute inset-0 opacity-[0.4]"
+        style={{
+          backgroundImage: 'linear-gradient(to right, rgba(38, 38, 38, 0.3) 1px, transparent 1px), linear-gradient(to bottom, rgba(38, 38, 38, 0.3) 1px, transparent 1px)',
+          backgroundSize: '20px 20px',
+        }}
+      />
+
+      {/* Glow orbs */}
+      <div className="absolute top-20 left-1/4 w-[400px] h-[400px] bg-accent/5 rounded-full blur-[150px]" />
+      <div className="absolute bottom-20 right-1/4 w-[300px] h-[300px] bg-accent/5 rounded-full blur-[150px]" />
+
+      {/* Gradient accent line */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
+
+      <div className="relative z-10 max-w-6xl mx-auto px-6">
         <SectionHeader
           label="02"
           title="Products & Solutions"
@@ -70,7 +86,7 @@ export function Products() {
         />
 
         {/* Featured Products */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {products.map((product) => (
             <Card key={product.title} className="group relative overflow-hidden">
               {/* Tag */}
@@ -79,20 +95,20 @@ export function Products() {
               </div>
 
               {/* Icon */}
-              <div className="w-12 h-12 border border-accent/30 flex items-center justify-center mb-6 group-hover:border-accent transition-colors">
-                <product.icon className="w-6 h-6 text-accent" />
+              <div className="w-10 h-10 border border-accent/30 flex items-center justify-center mb-4 group-hover:border-accent transition-colors">
+                <product.icon className="w-5 h-5 text-accent" />
               </div>
 
               {/* Content */}
-              <h3 className="text-xl font-medium text-foreground mb-3">
+              <h3 className="text-lg font-medium text-foreground mb-2">
                 {product.title}
               </h3>
-              <p className="text-sm text-muted mb-6 leading-relaxed">
+              <p className="text-xs text-muted mb-4 leading-relaxed">
                 {product.description}
               </p>
 
               {/* Features */}
-              <ul className="space-y-2 mb-6">
+              <ul className="space-y-1.5 mb-4">
                 {product.features.map((feature) => (
                   <li key={feature} className="flex items-center gap-2 text-xs font-mono text-muted">
                     <span className="text-accent">+</span>
@@ -175,6 +191,9 @@ export function Products() {
           </div>
         </div>
       </div>
+
+      {/* Bottom gradient accent line */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
     </section>
   );
 }
