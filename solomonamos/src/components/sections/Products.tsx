@@ -1,7 +1,7 @@
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Card } from '@/components/ui/Card';
 import { Reveal } from '@/components/Reveal';
-import { ArrowUpRight, Workflow, Target, Home, Building2, Brain, Layers, Database } from 'lucide-react';
+import { ArrowUpRight, Workflow, Target, Home, Layers, Map, Network, GraduationCap, Cloud, BookOpen } from 'lucide-react';
 import Link from 'next/link';
 
 const products = [
@@ -15,14 +15,6 @@ const products = [
     highlight: true,
   },
   {
-    title: 'VibeGTM',
-    description: 'AI-powered lead generation and outreach platform. Users describe their ideal customer in natural language, the system searches and qualifies prospects, then launches personalised multi-channel outreach with campaign analytics.',
-    features: ['Natural Language Prospecting', 'Signal-Based Enrichment', 'Multi-Channel Outreach', 'CRM Integration', 'Campaign Analytics'],
-    tag: 'LEAD GEN',
-    icon: Target,
-    highlight: true,
-  },
-  {
     title: 'HomePortfolio',
     description: 'Autonomous intelligence platform that turns 30 million UK property records into decisions. One question triggers autonomous specialised agents querying fifteen authoritative sources simultaneously, validating findings, and synthesising a professional investment memo in under thirty seconds.',
     features: ['Autonomous Specialised Agents', '15 Authoritative Sources', '30M+ Property Records', 'Portfolio Memory', 'Investment Memo Generation'],
@@ -31,32 +23,59 @@ const products = [
     link: 'https://homeportfolio.com',
     highlight: true,
   },
+  {
+    title: 'VibeGTM',
+    description: 'AI-powered lead generation and outreach platform built on the Anthropic SDK with MCP-server integration. Users describe their ideal customer in natural language; the system searches and qualifies prospects, then launches personalised multi-channel outreach with campaign analytics.',
+    features: ['Anthropic SDK + MCP', 'Natural Language Prospecting', 'Signal-Based Enrichment', 'Multi-Channel Outreach', 'Campaign Analytics'],
+    tag: 'LEAD GEN',
+    icon: Target,
+    highlight: true,
+  },
+  {
+    title: 'driveroutes',
+    description: 'AI-first iOS and Android app helping UK learner drivers prepare for the practical driving test. Anthropic Claude tool-use loop with SSE streaming and pgvector RAG over route metadata and the DVSA Highway Code, on a self-hosted FastAPI / Postgres+PostGIS / Valhalla routing stack.',
+    features: ['Claude Tool-Use Loop', 'pgvector RAG', 'DVSA Highway Code', 'React Native + Expo', 'Self-Hosted Stack'],
+    tag: 'MOBILE AI',
+    icon: Map,
+    link: 'https://driveroutes.app',
+    highlight: true,
+  },
+  {
+    title: 'ClawStack',
+    description: 'Multi-agent deployment and orchestration platform. Pick a model, pick a channel, sign in with Google, and your personal AI assistant is live across WhatsApp, Telegram, Discord or Slack. Sub-agent spawning with depth and budget controls, a tools-and-skills marketplace, and automated VPS provisioning behind the scenes.',
+    features: ['Multi-Agent Orchestration', 'Sub-Agent Spawning', 'Multi-Channel Routing', 'Tools / Skills Marketplace', 'Multi-Tenant SaaS'],
+    tag: 'AGENTS',
+    icon: Network,
+    highlight: true,
+  },
+  {
+    title: 'ClawCert',
+    description: 'Adaptive learning platform for the Anthropic Claude Certified Architect (Foundations) certification. Three layers: a 175-node knowledge-graph DAG mapping the five exam domains, a Bayesian Knowledge Tracing + spaced-repetition adaptive engine, and Archie — a Claude-powered Socratic tutor with graduated hints and misconception detection.',
+    features: ['Knowledge Graph DAG', 'Bayesian Knowledge Tracing', 'SM-2 Spaced Repetition', 'Claude Socratic Tutor', 'Adaptive Sequencing'],
+    tag: 'EDU AI',
+    icon: GraduationCap,
+    highlight: true,
+  },
 ];
 
 const trackRecord = [
   {
-    company: 'EliseAI',
-    role: 'LeasingAI & ResidentAI',
-    description: 'Helped design leasing and resident operations platforms now powering 1 in 8 US apartments. Complex lifecycle flows, RBAC, PMS integrations, and ops observability.',
-    icon: Building2,
-  },
-  {
-    company: 'Accenture',
-    role: 'Technical Architect',
-    description: 'Leading discovery and system design for enterprise ops platforms, workflow engines, admin systems, and integration layers across finance, operations, HR, and back-office systems.',
+    company: 'Accenture UK',
+    role: 'Lead Technical Architect & AI Enablement Lead',
+    description: 'Lead architect on UK Central Government modernisation engagements. AI strategy, transformation, and enablement across regulated public-sector programmes — alongside legacy modernisation and customer-service transformation. SC Cleared, willing to uplift to DV.',
     icon: Layers,
   },
   {
-    company: 'Stack AI',
-    role: 'Enterprise Agent Infrastructure',
-    description: 'Worked on enterprise agent deployment infrastructure including admin panels, workflow configuration, and integration layers for document-heavy operations.',
-    icon: Brain,
+    company: 'Synoptek',
+    role: 'Cloud Architect Consultant',
+    description: 'Customer-facing technical advisor to enterprise clients. Led discovery, design, and execution of large-scale AWS migration and modernisation programmes; partnered with C-suite and senior IT stakeholders on technology strategy and 12–24 month roadmaps.',
+    icon: Cloud,
   },
   {
-    company: 'Sana Labs',
-    role: 'Enterprise Knowledge Systems',
-    description: 'Contributed to enterprise knowledge systems requiring careful permission modelling and auditability for compliance.',
-    icon: Database,
+    company: 'University of York',
+    role: 'Lecturer, Applied AI & Machine Learning',
+    description: 'Teaching MSc-level postgraduate students on the Online Computer Science programme. Modules: Applied AI, Big Data Analytics & Machine Learning, Algorithms & Data Structures, Computer Networks & Security.',
+    icon: BookOpen,
   },
 ];
 
@@ -72,9 +91,8 @@ export function Products() {
         }}
       />
 
-      {/* Glow orbs */}
+      {/* Glow orb */}
       <div className="absolute top-20 left-1/4 w-[400px] h-[400px] bg-accent/5 rounded-full blur-[150px]" />
-      <div className="absolute bottom-20 right-1/4 w-[300px] h-[300px] bg-accent/5 rounded-full blur-[150px]" />
 
       {/* Gradient accent line */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
@@ -85,6 +103,7 @@ export function Products() {
           label="02"
           title="Products & Solutions"
           description="AI and automation platforms I have designed and built."
+          className="mb-12 md:mb-16"
         />
 
         {/* Featured Products */}
@@ -155,15 +174,13 @@ export function Products() {
             {trackRecord.map((item) => (
               <div
                 key={item.company}
-                className="group p-5 border border-border hover:border-accent/50 transition-colors"
+                className="group p-5 border border-border border-l-2 border-l-accent/40 hover:border-accent/50 hover:border-l-accent transition-colors"
               >
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 border border-accent/30 flex items-center justify-center flex-shrink-0 group-hover:border-accent transition-colors">
-                    <item.icon className="w-5 h-5 text-accent" />
-                  </div>
+                  <item.icon className="w-5 h-5 text-accent flex-shrink-0 mt-1" />
                   <div>
                     <h4 className="font-medium text-foreground">{item.company}</h4>
-                    <div className="text-xs font-mono text-accent mb-2">{item.role}</div>
+                    <div className="text-xs font-mono text-muted mb-2 uppercase tracking-wider">{item.role}</div>
                     <p className="text-sm text-muted leading-relaxed">{item.description}</p>
                   </div>
                 </div>
@@ -195,8 +212,6 @@ export function Products() {
         </Reveal>
       </div>
 
-      {/* Bottom gradient accent line */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
     </section>
   );
 }

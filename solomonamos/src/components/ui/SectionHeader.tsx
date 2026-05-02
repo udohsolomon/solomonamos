@@ -9,8 +9,8 @@ interface SectionHeaderProps {
 
 export function SectionHeader({ label, title, description, className }: SectionHeaderProps) {
   return (
-    <div className={cn('mb-12', className)}>
-      <div className="font-mono text-xs text-accent mb-2 tracking-wider">
+    <div className={cn('mb-8 md:mb-12', className)}>
+      <div className="font-mono text-xs text-accent mb-3 tracking-wider">
         {'[ '}{label.toUpperCase()}{' ]'}
       </div>
       <h2 className="text-3xl md:text-4xl font-sans font-medium text-foreground mb-4">

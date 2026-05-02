@@ -5,8 +5,8 @@ import { Bot, Cloud, Shield, Database, Server } from 'lucide-react';
 const specialisations = [
   {
     icon: Bot,
-    title: 'AI & Automation',
-    description: 'Intelligent workflows, AI-driven decision systems, and ML model integration.',
+    title: 'Applied AI & Agentic Systems',
+    description: 'Production GenAI on Claude — Anthropic SDK, MCP servers, multi-agent orchestration, RAG, tool use, and evaluations.',
   },
   {
     icon: Cloud,
@@ -31,13 +31,14 @@ const specialisations = [
 ];
 
 const certifications = [
+  'Anthropic Claude Architect (Foundations) - in progress',
   'AWS Certified Solutions Architect - Professional',
-  'AWS Certified DevOps Engineer - Professional',
-  'AWS Certified Security - Specialty',
-  'AWS Certified Advanced Networking - Specialty',
   'AWS Certified Machine Learning - Specialty',
-  'AWS Certified Data Analytics - Specialty',
   'AWS Certified AI Practitioner',
+  'AWS Certified DevOps Engineer - Professional',
+  'AWS Certified Advanced Networking - Specialty',
+  'AWS Certified Data Analytics - Specialty',
+  'AWS Certified Security - Specialty',
 ];
 
 export function About() {
@@ -45,7 +46,7 @@ export function About() {
     <section id="about" className="py-24 border-t border-border">
       <div className="max-w-6xl mx-auto px-6">
         <Reveal>
-        <div className="grid lg:grid-cols-2 gap-16">
+        <div className="grid lg:grid-cols-[1.2fr_1fr] gap-16">
           {/* Left: Story */}
           <div>
             <SectionHeader
@@ -56,20 +57,29 @@ export function About() {
 
             <div className="space-y-6 text-muted leading-relaxed">
               <p>
-                I help organisations design and implement secure, scalable, and AI-powered
+                I help organisations design and implement secure, scalable, AI-powered
                 solutions that accelerate growth and efficiency. With over 8 years of experience
-                across Fortune 500 companies, start-ups, government agencies, and small businesses
-                worldwide, I bring a rare blend of deep technical expertise and strategic thinking.
+                across Fortune 500 companies, AI-native start-ups, UK Central Government, and
+                small businesses worldwide, I bring a rare blend of deep technical expertise
+                and strategic thinking.
               </p>
               <p>
-                Currently, I work as a Technical Architect at Accenture, delivering large-scale
-                AI and automation solutions in highly regulated environments where security, ethics,
-                and performance are non-negotiable.
+                Currently, I serve as Lead Technical Architect &amp; AI Enablement Lead at
+                Accenture, delivering AI strategy, transformation, and enablement across
+                large-scale public-sector modernisation programmes — highly regulated
+                environments where security, ethics, and performance are non-negotiable.
+                I am SC Cleared and willing to uplift to DV.
               </p>
               <p>
-                I also hold a PhD in Computer Science with research in machine learning and
-                security, giving me a strong foundation in both the theory and practice of building
-                intelligent systems.
+                Outside Accenture, I am a hands-on builder of production GenAI products on
+                Claude — agentic systems, multi-agent orchestration, MCP servers, RAG, and
+                evaluations — including driveroutes, ClawStack, ClawCert, Nexus, HomePortfolio,
+                and VibeGTM.
+              </p>
+              <p>
+                I also hold a PhD in Engineering with research in machine learning and
+                cybersecurity, and lecture in Applied AI and Machine Learning on the Online
+                MSc Computer Science programme at the University of York.
               </p>
               <p className="text-foreground font-medium">
                 I believe the best technology is invisible - it just works, making organisations
@@ -98,7 +108,7 @@ export function About() {
                 <span className="text-accent">{'>'}</span> Solomon Amos
               </div>
               <div className="text-xs text-muted-dark mt-1">
-                Technical Architect | PhD in Computer Science
+                Lead Technical Architect &amp; AI Enablement Lead | PhD, Engineering (ML &amp; Security)
               </div>
             </div>
           </div>

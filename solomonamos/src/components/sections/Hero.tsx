@@ -45,7 +45,7 @@ export function Hero() {
           <div className="space-y-8">
             <div className="inline-flex items-center gap-2 px-3 py-1 border border-border bg-background/60 backdrop-blur-sm text-xs font-mono text-muted">
               <Sparkles className="w-3 h-3 text-accent" />
-              <span>AI & Technology Consultant</span>
+              <span>Applied AI Architect &amp; Builder</span>
             </div>
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-semibold leading-tight tracking-tight">
@@ -59,35 +59,35 @@ export function Hero() {
               AI-powered solutions that accelerate growth and efficiency.
             </p>
             
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <Link
                 href="#contact"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-background font-mono text-sm hover:bg-accent-hover glow-accent-hover transition-all"
+                className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 bg-accent text-background font-mono text-sm hover:bg-accent-hover glow-accent-hover transition-all"
               >
                 Book a Call
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
                 href="#products"
-                className="inline-flex items-center gap-2 px-6 py-3 border border-border text-muted font-mono text-sm hover:border-accent hover:text-accent transition-colors"
+                className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 border border-border text-muted font-mono text-sm hover:border-accent hover:text-accent transition-colors"
               >
                 View Products
               </Link>
             </div>
 
             {/* Stats */}
-            <div className="flex flex-wrap gap-6 sm:gap-8 pt-4">
-              <div>
-                <div className="text-2xl font-mono text-foreground">50+</div>
-                <div className="text-xs text-muted font-mono">Projects Delivered</div>
+            <div className="flex flex-wrap gap-x-6 gap-y-4 pt-6 border-t border-border">
+              <div className="pr-6 border-r border-border last:border-r-0 last:pr-0">
+                <div className="text-3xl font-mono text-foreground">50+</div>
+                <div className="text-xs uppercase tracking-wider text-muted font-mono mt-1">Projects Delivered</div>
               </div>
-              <div>
-                <div className="text-2xl font-mono text-foreground">8+</div>
-                <div className="text-xs text-muted font-mono">Years Experience</div>
+              <div className="pr-6 border-r border-border last:border-r-0 last:pr-0">
+                <div className="text-3xl font-mono text-foreground">8+</div>
+                <div className="text-xs uppercase tracking-wider text-muted font-mono mt-1">Years Experience</div>
               </div>
-              <div>
-                <div className="text-2xl font-mono text-foreground">100%</div>
-                <div className="text-xs text-muted font-mono">Client Satisfaction</div>
+              <div className="pr-6 border-r border-border last:border-r-0 last:pr-0">
+                <div className="text-3xl font-mono text-foreground">100%</div>
+                <div className="text-xs uppercase tracking-wider text-muted font-mono mt-1">Client Satisfaction</div>
               </div>
             </div>
           </div>
@@ -101,22 +101,22 @@ export function Hero() {
                     whoami
                   </TerminalLine>
                   <TerminalLine prefix=" " delay={300}>
-                    <span className="text-foreground font-medium">Solomon Amos</span> - Technical Architect
+                    <span className="text-foreground font-medium">Solomon Amos</span> - Applied AI Architect
                   </TerminalLine>
                   <TerminalLine prefix="$" delay={500}>
                     cat skills.txt
                   </TerminalLine>
                   <TerminalLine prefix=" " delay={700}>
-                    <span className="text-accent">{'['}</span> AI & Automation <span className="text-accent">{']'}</span>
+                    <span className="text-accent">{'['}</span> Claude / Anthropic SDK / MCP <span className="text-accent">{']'}</span>
                   </TerminalLine>
                   <TerminalLine prefix=" " delay={800}>
-                    <span className="text-accent">{'['}</span> Cloud Architecture <span className="text-accent">{']'}</span>
+                    <span className="text-accent">{'['}</span> Multi-Agent Orchestration <span className="text-accent">{']'}</span>
                   </TerminalLine>
                   <TerminalLine prefix=" " delay={900}>
-                    <span className="text-accent">{'['}</span> Security & Compliance <span className="text-accent">{']'}</span>
+                    <span className="text-accent">{'['}</span> Cloud Architecture (AWS / Azure) <span className="text-accent">{']'}</span>
                   </TerminalLine>
                   <TerminalLine prefix=" " delay={1000}>
-                    <span className="text-accent">{'['}</span> Enterprise Solutions <span className="text-accent">{']'}</span>
+                    <span className="text-accent">{'['}</span> UK Public Sector / SC Cleared <span className="text-accent">{']'}</span>
                   </TerminalLine>
                   <TerminalLine prefix="$" delay={1200}>
                     ./start_collaboration.sh
