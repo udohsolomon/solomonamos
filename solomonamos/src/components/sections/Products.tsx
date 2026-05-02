@@ -1,5 +1,6 @@
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Card } from '@/components/ui/Card';
+import { Reveal } from '@/components/Reveal';
 import { ArrowUpRight, Workflow, Target, Home, Building2, Brain, Layers, Database } from 'lucide-react';
 import Link from 'next/link';
 
@@ -61,7 +62,7 @@ const trackRecord = [
 
 export function Products() {
   return (
-    <section id="products" className="relative py-24 border-t border-border bg-background overflow-hidden">
+    <section id="products" className="relative py-32 border-t border-border bg-background overflow-hidden">
       {/* Grid pattern overlay */}
       <div
         className="absolute inset-0 opacity-[0.4]"
@@ -79,6 +80,7 @@ export function Products() {
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
 
       <div className="relative z-10 max-w-6xl mx-auto px-6">
+        <Reveal>
         <SectionHeader
           label="02"
           title="Products & Solutions"
@@ -86,7 +88,7 @@ export function Products() {
         />
 
         {/* Featured Products */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {products.map((product) => (
             <Card key={product.title} className="group relative overflow-hidden">
               {/* Tag */}
@@ -100,10 +102,10 @@ export function Products() {
               </div>
 
               {/* Content */}
-              <h3 className="text-lg font-medium text-foreground mb-2">
+              <h3 className="text-xl font-medium text-foreground mb-2">
                 {product.title}
               </h3>
-              <p className="text-xs text-muted mb-4 leading-relaxed">
+              <p className="text-sm text-muted mb-4 leading-relaxed">
                 {product.description}
               </p>
 
@@ -190,6 +192,7 @@ export function Products() {
             </Link>
           </div>
         </div>
+        </Reveal>
       </div>
 
       {/* Bottom gradient accent line */}

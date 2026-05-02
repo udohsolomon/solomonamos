@@ -1,6 +1,7 @@
 import { getAllPosts } from '@/lib/posts';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Card } from '@/components/ui/Card';
+import { Reveal } from '@/components/Reveal';
 import { ArrowRight, Clock, ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 
@@ -18,8 +19,9 @@ export function Writing() {
   const otherPosts = posts.filter((p) => !p.featured).slice(0, 2);
 
   return (
-    <section id="writing" className="py-24 border-t border-border bg-muted-darker/20">
+    <section id="writing" className="py-20 border-t border-border bg-muted-darker/40">
       <div className="max-w-6xl mx-auto px-6">
+        <Reveal>
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
           <SectionHeader
             label="03"
@@ -90,6 +92,9 @@ export function Writing() {
             {/* Other Posts */}
             {otherPosts.length > 0 && (
               <div className="space-y-4">
+                <div className="font-mono text-xs text-accent mb-4">
+                  {'// MORE_POSTS'}
+                </div>
                 {otherPosts.map((post) => (
                   <Link key={post.slug} href={`/blog/${post.slug}`}>
                     <div className="group p-4 border border-border hover:border-accent/50 transition-colors flex items-center justify-between">
@@ -124,6 +129,7 @@ export function Writing() {
           View all posts
           <ArrowRight className="w-4 h-4" />
         </Link>
+        </Reveal>
       </div>
     </section>
   );

@@ -22,7 +22,7 @@ const config: Config = {
         },
         muted: {
           DEFAULT: '#a3a3a3',
-          dark: '#525252',
+          dark: '#737373',
           darker: '#262626',
         },
         border: '#262626',
@@ -34,11 +34,8 @@ const config: Config = {
       animation: {
         'fade-in': 'fadeIn 0.5s ease-out forwards',
         'slide-up': 'slideUp 0.5s ease-out forwards',
-        'typing': 'typing 3.5s steps(40, end)',
         'blink': 'blink 1s step-end infinite',
-        'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
         'terminal-line': 'terminalLine 0.3s ease-out forwards',
-        'spin-slow': 'spin 3s linear infinite',
       },
       keyframes: {
         fadeIn: {
@@ -49,17 +46,9 @@ const config: Config = {
           '0%': { opacity: '0', transform: 'translateY(20px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
-        typing: {
-          '0%': { width: '0' },
-          '100%': { width: '100%' },
-        },
         blink: {
           '0%, 100%': { borderColor: 'transparent' },
           '50%': { borderColor: '#00d9ff' },
-        },
-        pulseGlow: {
-          '0%, 100%': { boxShadow: '0 0 5px #00d9ff, 0 0 10px #00d9ff' },
-          '50%': { boxShadow: '0 0 20px #00d9ff, 0 0 30px #00d9ff' },
         },
         terminalLine: {
           '0%': { opacity: '0', transform: 'translateX(-10px)' },

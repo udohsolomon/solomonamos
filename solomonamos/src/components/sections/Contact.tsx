@@ -1,12 +1,14 @@
 'use client';
 
 import { SectionHeader } from '@/components/ui/SectionHeader';
+import { Reveal } from '@/components/Reveal';
 import { Calendar, Mail, ExternalLink } from 'lucide-react';
 
 export function Contact() {
   return (
     <section id="contact" className="py-24 border-t border-border">
       <div className="max-w-6xl mx-auto px-6">
+        <Reveal>
         <div className="grid lg:grid-cols-2 gap-16">
           {/* Left: Info */}
           <div>
@@ -74,7 +76,7 @@ export function Contact() {
             <div className="border border-border overflow-hidden">
               <div
                 className="calendly-inline-widget"
-                data-url="https://calendly.com/solomonamos/discovery?hide_event_type_details=1&hide_gdpr_banner=1&background_color=0a0a0a&text_color=fafafa&primary_color=00d9ff"
+                data-url="https://calendly.com/solomonamos/discovery?hide_event_type_details=1&hide_gdpr_banner=1&background_color=030712&text_color=fafafa&primary_color=00d9ff"
                 style={{ minWidth: '280px', height: '580px' }}
                 title="Schedule a consultation with Solomon Amos"
               />
@@ -89,6 +91,7 @@ export function Contact() {
             </div>
           </div>
         </div>
+        </Reveal>
       </div>
     </section>
   );

@@ -1,26 +1,54 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight, Sparkles, ChevronDown } from 'lucide-react';
 import { TerminalBlock, TerminalLine } from '@/components/ui/TerminalBlock';
 
 export function Hero() {
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden grid-bg">
-      {/* Gradient orb */}
-      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-lime/5 rounded-full blur-3xl" />
+      {/* Aurora effect */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+        {/* Layer 1: Primary cyan band */}
+        <div
+          className="absolute w-[800px] h-[600px] -top-[100px] left-[10%] rounded-full"
+          style={{
+            background: 'radial-gradient(ellipse at center, rgba(0,217,255,0.15) 0%, rgba(0,217,255,0.05) 50%, transparent 70%)',
+            filter: 'blur(60px)',
+            animation: 'aurora 8s ease-in-out infinite',
+          }}
+        />
+        {/* Layer 2: Deep cyan band */}
+        <div
+          className="absolute w-[600px] h-[500px] top-[5%] right-[5%] rounded-full"
+          style={{
+            background: 'radial-gradient(ellipse at center, rgba(0,184,217,0.12) 0%, rgba(8,145,178,0.06) 50%, transparent 70%)',
+            filter: 'blur(50px)',
+            animation: 'aurora 12s ease-in-out infinite reverse',
+          }}
+        />
+        {/* Layer 3: Green accent */}
+        <div
+          className="absolute w-[500px] h-[400px] bottom-[10%] left-[30%] rounded-full"
+          style={{
+            background: 'radial-gradient(ellipse at center, rgba(132,204,22,0.08) 0%, transparent 60%)',
+            filter: 'blur(50px)',
+            animation: 'aurora 10s ease-in-out infinite',
+            animationDelay: '2s',
+          }}
+        />
+      </div>
       
-      <div className="max-w-7xl mx-auto px-6 py-32 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+      <div className="max-w-6xl mx-auto px-6 py-32 relative z-10">
+        <div className="grid md:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Left: Text Content */}
           <div className="space-y-8">
-            <div className="inline-flex items-center gap-2 px-3 py-1 border border-border text-xs font-mono text-muted">
+            <div className="inline-flex items-center gap-2 px-3 py-1 border border-border bg-background/60 backdrop-blur-sm text-xs font-mono text-muted">
               <Sparkles className="w-3 h-3 text-accent" />
               <span>AI & Technology Consultant</span>
             </div>
             
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-medium leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-semibold leading-tight tracking-tight">
               Building the future,
               <br />
               <span className="text-gradient">one system at a time.</span>
@@ -34,7 +62,7 @@ export function Hero() {
             <div className="flex flex-wrap gap-4">
               <Link
                 href="#contact"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-background font-mono text-sm hover:bg-accent-hover transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-background font-mono text-sm hover:bg-accent-hover glow-accent-hover transition-all"
               >
                 Book a Call
                 <ArrowRight className="w-4 h-4" />
@@ -65,7 +93,7 @@ export function Hero() {
           </div>
 
           {/* Right: Terminal */}
-          <div className="hidden lg:flex items-center justify-center">
+          <div className="hidden md:flex items-center justify-center">
             <div className="w-full max-w-md lg:max-w-lg xl:max-w-xl">
               <TerminalBlock title="solomon@system ~ " className="animate-fade-in" animated={true}>
                 <div className="space-y-3">
@@ -105,9 +133,9 @@ export function Hero() {
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-pulse">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
         <span className="text-xs font-mono text-muted">scroll</span>
-        <div className="w-px h-8 bg-gradient-to-b from-muted to-transparent" />
+        <ChevronDown className="w-4 h-4 text-accent animate-bounce" />
       </div>
     </section>
   );

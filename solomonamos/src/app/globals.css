@@ -166,19 +166,28 @@ body {
   color: var(--background);
 }
 
-/* Terminal cursor animation */
-.terminal-cursor::after {
-  content: '|';
-  animation: blink 1s step-end infinite;
-  color: var(--accent);
-}
-
 /* Grid background */
 .grid-bg {
-  background-image: 
+  background-image:
     linear-gradient(to right, rgba(38, 38, 38, 0.3) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(38, 38, 38, 0.3) 1px, transparent 1px);
   background-size: 40px 40px;
+}
+
+/* Aurora / Northern Lights animation - used by Hero */
+@keyframes aurora {
+  0%, 100% {
+    transform: translateY(0) translateX(0) scale(1);
+  }
+  25% {
+    transform: translateY(-40px) translateX(20px) scale(1.05);
+  }
+  50% {
+    transform: translateY(-20px) translateX(-30px) scale(1.1);
+  }
+  75% {
+    transform: translateY(30px) translateX(10px) scale(1.03);
+  }
 }
 
 /* Noise overlay */
@@ -239,66 +248,6 @@ body {
 
 .border-glow {
   animation: borderGlow 2s ease-in-out infinite;
-}
-
-/* Animated border button - moving line effect */
-@keyframes borderTop {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-@keyframes borderRight {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(100%); }
-}
-
-@keyframes borderBottom {
-  0% { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
-}
-
-@keyframes borderLeft {
-  0% { transform: translateY(100%); }
-  100% { transform: translateY(-100%); }
-}
-
-.animate-border-top {
-  animation: borderTop 2s linear infinite;
-}
-
-.animate-border-right {
-  animation: borderRight 2s linear infinite;
-  animation-delay: 0.5s;
-}
-
-.animate-border-bottom {
-  animation: borderBottom 2s linear infinite;
-  animation-delay: 1s;
-}
-
-.animate-border-left {
-  animation: borderLeft 2s linear infinite;
-  animation-delay: 1.5s;
-}
-
-/* Typewriter effect */
-.typewriter {
-  overflow: hidden;
-  border-right: 2px solid var(--accent);
-  white-space: nowrap;
-  animation: 
-    typing 3.5s steps(40, end),
-    blink 1s step-end infinite;
-}
-
-@keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
-}
-
-@keyframes blink {
-  from, to { border-color: transparent }
-  50% { border-color: var(--accent); }
 }
 
 /* Focus styles */
@@ -387,7 +336,7 @@ html {
    ============================================ */
 
 .text-muted-dark {
-  color: #525252;
+  color: #737373;
 }
 
 .bg-muted-dark {
@@ -395,7 +344,7 @@ html {
 }
 
 .placeholder\:text-muted-dark::placeholder {
-  color: #525252;
+  color: #737373;
 }
 
 /* ============================================
@@ -421,19 +370,6 @@ html {
     transform: translate(-50%, -50%) !important;
   }
 
-  /* Typewriter - show full text immediately */
-  .typewriter {
-    animation: none !important;
-    width: 100% !important;
-    border-right-color: var(--accent) !important;
-  }
-
-  /* Terminal cursor - static visible state */
-  .terminal-cursor::after {
-    animation: none !important;
-    opacity: 1 !important;
-  }
-
   /* Border glow - static state */
   .border-glow {
     animation: none !important;
@@ -452,8 +388,8 @@ html {
   /* Disable Tailwind animate utilities */
   .animate-pulse,
   .animate-blink,
-  .animate-spin,
-  .animate-spin-slow {
+  .animate-bounce,
+  .animate-spin {
     animation: none !important;
   }
 }

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { SectionHeader } from '@/components/ui/SectionHeader';
+import { Reveal } from '@/components/Reveal';
 import { Send, CheckCircle, AlertCircle } from 'lucide-react';
 
 export function Newsletter() {
@@ -43,8 +44,9 @@ export function Newsletter() {
   };
 
   return (
-    <section id="newsletter" className="py-24 border-t border-border">
+    <section id="newsletter" className="py-16 border-t border-border">
       <div className="max-w-6xl mx-auto px-6">
+        <Reveal>
         <div className="max-w-2xl mx-auto text-center">
           <SectionHeader
             label="04"
@@ -69,7 +71,7 @@ export function Newsletter() {
           <form onSubmit={handleSubmit} className="relative">
             <div className="flex flex-col sm:flex-row gap-3">
               <div className="flex-1 relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-accent font-mono text-sm">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-accent font-mono text-sm">
                   {'>'}
                 </span>
                 <label htmlFor="newsletter-email" className="sr-only">
@@ -81,7 +83,7 @@ export function Newsletter() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="your@email.com"
-                  className="w-full pl-8 pr-4 py-3 bg-background border border-border text-foreground font-mono text-sm placeholder:text-muted-dark focus:outline-none focus:border-accent transition-colors"
+                  className="w-full pl-7 pr-6 py-3 bg-background border border-border text-foreground font-mono text-sm placeholder:text-muted-dark focus:outline-none focus:border-accent transition-colors"
                   disabled={status === 'loading' || status === 'success'}
                   required
                 />
@@ -146,13 +148,14 @@ export function Newsletter() {
             (topic) => (
               <div
                 key={topic}
-                className="p-4 border border-border text-center font-mono text-xs text-muted hover:border-accent/50 hover:text-accent transition-colors"
+                className="p-4 border border-border text-center font-mono text-xs text-muted"
               >
                 {topic}
               </div>
             )
           )}
         </div>
+        </Reveal>
       </div>
     </section>
   );

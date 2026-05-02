@@ -38,7 +38,7 @@ export function Footer() {
 
           {/* Links */}
           <div>
-            <div className="font-mono text-xs text-accent mb-4">NAV_LINKS</div>
+            <div className="font-mono text-xs text-accent mb-4">{'// NAV_LINKS'}</div>
             <ul className="space-y-2">
               {footerLinks.map((link) => (
                 <li key={link.href}>
@@ -56,7 +56,10 @@ export function Footer() {
 
           {/* Connect */}
           <div>
-            <div className="font-mono text-xs text-accent mb-4">CONNECT</div>
+            <div className="font-mono text-xs text-accent mb-4">{'// CONNECT'}</div>
+            <p className="text-sm text-muted leading-relaxed mb-4">
+              Find me on the usual platforms. DMs and emails open.
+            </p>
             <div className="flex gap-4">
               {socialLinks.map((social) => (
                 <a

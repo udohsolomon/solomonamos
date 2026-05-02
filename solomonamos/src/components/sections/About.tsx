@@ -1,4 +1,5 @@
 import { SectionHeader } from '@/components/ui/SectionHeader';
+import { Reveal } from '@/components/Reveal';
 import { Bot, Cloud, Shield, Database, Server } from 'lucide-react';
 
 const specialisations = [
@@ -43,6 +44,7 @@ export function About() {
   return (
     <section id="about" className="py-24 border-t border-border">
       <div className="max-w-6xl mx-auto px-6">
+        <Reveal>
         <div className="grid lg:grid-cols-2 gap-16">
           {/* Left: Story */}
           <div>
@@ -80,7 +82,7 @@ export function About() {
               <div className="font-mono text-xs text-accent mb-4">
                 {'// CERTIFICATIONS'}
               </div>
-              <div className="space-y-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2">
                 {certifications.map((cert) => (
                   <div key={cert} className="flex items-start gap-2 text-sm font-mono text-muted">
                     <span className="text-accent flex-shrink-0">+</span>
@@ -127,6 +129,7 @@ export function About() {
             ))}
           </div>
         </div>
+        </Reveal>
       </div>
     </section>
   );

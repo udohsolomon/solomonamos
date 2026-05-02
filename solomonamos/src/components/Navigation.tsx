@@ -54,7 +54,7 @@ export function Navigation() {
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
         isScrolled || isMobileMenuOpen
           ? 'bg-background/95 backdrop-blur-md border-b border-border'
-          : 'bg-transparent'
+          : 'bg-background/30 backdrop-blur-sm'
       )}
     >
       <nav className="max-w-6xl mx-auto px-6 py-4">
