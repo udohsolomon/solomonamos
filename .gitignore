@@ -1,1 +1,4 @@
 .aws-env.sh
+
+# Private career / job-hunt materials — never commit
+career/
