@@ -78,8 +78,9 @@ export function About() {
               </p>
               <p>
                 I also hold a PhD in Engineering with research in machine learning and
-                cybersecurity, and lecture in Applied AI and Machine Learning on the Online
-                MSc Computer Science programme at the University of York.
+                cybersecurity, and previously lectured in Applied AI and Machine Learning
+                on the Online MSc Computer Science programme at the University of York
+                (2020–2023).
               </p>
               <p className="text-foreground font-medium">
                 I believe the best technology is invisible - it just works, making organisations

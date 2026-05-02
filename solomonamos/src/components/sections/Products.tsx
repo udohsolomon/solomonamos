@@ -73,8 +73,8 @@ const trackRecord = [
   },
   {
     company: 'University of York',
-    role: 'Lecturer, Applied AI & Machine Learning',
-    description: 'Teaching MSc-level postgraduate students on the Online Computer Science programme. Modules: Applied AI, Big Data Analytics & Machine Learning, Algorithms & Data Structures, Computer Networks & Security.',
+    role: 'Lecturer, Applied AI & Machine Learning (2020–2023)',
+    description: 'Taught MSc-level postgraduate students on the Online Computer Science programme. Modules: Applied AI, Big Data Analytics & Machine Learning, Algorithms & Data Structures, Computer Networks & Security.',
     icon: BookOpen,
   },
 ];
